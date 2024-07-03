@@ -1,7 +1,7 @@
 from aiohttp import web
 
 async def handle(request):
-    return web.Response(text="200 OK")
+    return web.Response(text="200 OK\n")
 
 app = web.Application()
 app.router.add_get('/healthz', handle)
