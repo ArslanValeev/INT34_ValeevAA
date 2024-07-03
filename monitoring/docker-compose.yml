@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  prometheus:
+    build: ./prometheus
+    volumes:
+      - ./prometheus:/etc/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - 9090:9090
+
+  blackbox_exporter:
+    build: ./blackbox_exporter
+    volumes:
+      - ./blackbox_exporter:/config
+    command:
+      - '--config.file=/config/blackbox.yml'
+    ports:
+      - 9115:9115
