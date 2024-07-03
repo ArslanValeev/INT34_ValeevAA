@@ -1,15 +1,12 @@
-# Инструкция по запуску
-
-Запуск Ansible Playbook:
+# Запуск проекта с использованем Ansible Playbook:
+## Инструкция:
+## Откройте терминал и выполните следующую команду:
 
 ```ansible-playbook -i hosts playbook.yml```
 
 
-> Могут возникнуть проблемы в несовместимости версий PostgreSQL-16 и Debian-10
->> В этом случае рекомендуется понизить версию PostgreSQL на 14 в roles/postgresql/tasks/main.yml
->>
-``` 
-- name: Ensure PostgreSQL is installed 
+### При возникновении проблем с несовместимостью версий PostgreSQL-16 и Debian-10 рекомендуется понизить версию PostgreSQL до 14 в файле roles/postgresql/tasks/main.yml:
+```- name: Ensure PostgreSQL is installed 
   apt:
     name: "{{ item }}"
     state: present
