@@ -1,0 +1,44 @@
+---
+- name: Ensure no other apt processes are running
+  shell: |
+    while fuser /var/lib/dpkg/lock >/dev/null 2>&1; do
+      echo "Waiting for other apt/dpkg processes to finish..."
+      sleep 5
+    done
+
+- name: Add PostgreSQL APT key
+  apt_key:
+    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+    state: present
+
+- name: Add PostgreSQL APT repository
+  apt_repository:
+    repo: 'deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main'
+    state: present
+    filename: 'pgdg.list'
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Ensure PostgreSQL is installed
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - postgresql-16
+    - postgresql-client-16
+
+- name: Ensure PostgreSQL service is enabled and started
+  systemd:
+    name: postgresql
+    enabled: yes
+    state: started
+
+- name: Configure PostgreSQL
+  template:
+    src: postgresql.conf.j2
+    dest: /etc/postgresql/16/main/postgresql.conf
+  notify:
+    - Restart PostgreSQL

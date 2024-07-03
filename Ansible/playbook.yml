@@ -1,0 +1,5 @@
+- name: Configure Debian 10 Server and Install PostgreSQL
+  hosts: all
+  become: true
+  roles:
+    - postgresql
