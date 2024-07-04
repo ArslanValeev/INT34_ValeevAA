@@ -14,8 +14,8 @@
 
 ## 2: Проверка Prometheus:
 
-- В браузере перейдите по адресу http://localhost:9090.
--  Далее откройте Targets во вкладке Status (http://localhost:9090/targets).
+- В браузере перейдите по адресу http://localhost:9090
+-  Далее откройте Targets во вкладке Status http://localhost:9090/targets
 
 ##  3: Проверка Blackbox Exporter:
-- В браузере перейдите по адресу http://localhost:9115/metrics.
+- В браузере перейдите по адресу http://localhost:9115/metrics
